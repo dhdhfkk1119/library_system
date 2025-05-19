@@ -98,10 +98,10 @@ public class BookDAO {
 
             //bookDAO.addBook(new Book(0,"조정우짱이다","조정우","정우네트워크",2023,"9789123123",true));
 
-            ArrayList<Book> selectBookList = (ArrayList) bookDAO.searchBooksTitle("입문");
-            for (int i = 0; i < selectBookList.size(); i++) {
-                System.out.println(selectBookList.get(i));
-            }
+//            ArrayList<Book> selectBookList = (ArrayList) bookDAO.searchBooksTitle("입문");
+//            for (int i = 0; i < selectBookList.size(); i++) {
+//                System.out.println(selectBookList.get(i));
+//            }
 //            for (int i = 0; i < bookDAO.searchBooksTitle("웹").size(); i++) {
 //                System.out.println(bookDAO.selectBookList().get(i));
 //            }
