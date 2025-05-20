@@ -77,6 +77,63 @@ public class BorrowDAO {
         }
     }
 
+    //
+
+    // 도서 반납을 처리하는 기능 추가
+    // 1. borrows 테이블에 책 정보 조회 (check) -- SELECT (복합 조건)
+    // 2. borrows 테이블에 return_date 수정 --- UPDATE
+    // 3. books 테이블에 available 수정 --- UPDATE
+    /*public void returnBook(int bookId, int studentPK ) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+            // 트랜잭션 시작
+            conn.setAutoCommit(false);
+
+            // 이 쿼리에 결과집합에서 필요한 것은 borrows 의 pk(id) 값 이다.
+            int borrowId = 0;
+            String checkSql = "SELECT id FROM borrows " +
+                    "               WHERE book_id = ? " +
+                    "                   AND student_id = ? " +
+                    "                   AND return_date IS NULL";
+
+            try(PreparedStatement checkPstmt = conn.prepareStatement(checkSql)) {
+                checkPstmt.setInt(1, bookId);
+                checkPstmt.setInt(2, studentPK);
+                ResultSet rs = checkPstmt.executeQuery();
+                if(!rs.next()) {
+                    throw new SQLException("해당 대출 기록이 존재하지 않거나 이미 반납되었습니다.");
+                }
+                borrowId = rs.getInt("id");
+            }
+
+            String updateBorrowSql = "UPDATE borrows SET return_date = CURRENT_DATE WHERE id = ? ";
+            String updateBookSql = "UPDATE books SET available = true WHERE id = ? ";
+
+            try(PreparedStatement borrowPstmt = conn.prepareStatement(updateBorrowSql);
+                PreparedStatement bookPstmt = conn.prepareStatement(updateBookSql)) {
+                // borrows 설정
+                borrowPstmt.setInt(1, borrowId);
+                borrowPstmt.executeUpdate(); // 쿼리 실행
+
+                // books 설정
+                bookPstmt.setInt(1, bookId);
+                bookPstmt.executeUpdate(); // 쿼리 실행
+            }
+            conn.commit(); // 트랙처리 완료
+        } catch (SQLException e) {
+            if(conn != null) {
+                conn.rollback(); // 오류 발생시 롤백 처리
+            }
+            System.err.println("rollback 처리를 하였습니다");
+        } finally {
+            if(conn != null) {
+                conn.setAutoCommit(true); // 다시 오토커밋 설정
+                conn.close(); // 자원을 닫아야 메모리 누수가 발생하지 않는다.
+            }
+        }
+    }*/
+
     public List<Borrow> getBorrowedBooks() throws SQLException {
 
         List<Borrow> borrowslist = new ArrayList<>();
